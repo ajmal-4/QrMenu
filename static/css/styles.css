@@ -3,6 +3,10 @@
     margin: 20px 0;
 }
 
+body{
+    background-color: #ff8c00;
+}
+
 /* Special Items Section */
 .special-items-section {
     margin-bottom: 20px;
@@ -213,7 +217,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #FFD700; /* Golden yellow background color */
+    /*background-color: #FFD700; /* Golden yellow background color */
     z-index: -1; /* Ensure it's behind the content */
 
     /* Apply opacity only to the background image */
