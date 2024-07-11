@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>Restaurant Menu</title>
+</head>
+<body>
+    <section class="hotel-name">
+        <h1> Majlis </h1>
+        <p>Wadakkanchery</p>
+    </section>
+    <!-- Special Items Section -->
+    {% if special_items %}
+    <section class="special-items-section">
+        <h2 class="special-items-heading">Today's Specials</h2>
+        <div class="special-items">
+            {% for special_item in special_items %}
+                <!-- Display single special item -->
+                <div class="special-item">
+                    <h3 class="special-item-heading">
+                        <span class="special-item-name">{{ special_item.name }}</span>
+                        <span class="special-item-price">${{ special_item.price }}</span>
+                    </h3>
+                    <p class="special-item-desc">{{ special_item.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
+    <section class="hotel-name">
+        <h1> Our Menu </h1>
+    </section>
+    <main class="container">
+        <div class="background-animation"></div>
+
+        <div class="left-section">
+            {% for category in categories %}
+                {% if loop.index is odd %}
+                    <div class="menu">
+                        <h2 class="menu-group-heading">{{ category.name }}</h2>
+                        <div class="menu-group">
+                            {% for item in category.items %}
+                                <div class="menu-item">
+                                    <h3 class="menu-item-heading">
+                                        <span class="menu-item-name">{{ item.name }}</span>
+                                        <span class="menu-item-price">${{ item.price }}</span>
+                                    </h3>
+                                    <p class="menu-item-desc">{{ item.description }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="right-section">
+            {% for category in categories %}
+                {% if loop.index is even %}
+                    <div class="menu">
+                        <h2 class="menu-group-heading">{{ category.name }}</h2>
+                        <div class="menu-group">
+                            {% for item in category.items %}
+                                <div class="menu-item">
+                                    <h3 class="menu-item-heading">
+                                        <span class="menu-item-name">{{ item.name }}</span>
+                                        <span class="menu-item-price">${{ item.price }}</span>
+                                    </h3>
+                                    <p class="menu-item-desc">{{ item.description }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </main>
+    <section class="pdf-section">
+        <h2 class="pdf-heading">Menu PDF</h2>
+        <div class="pdf-container">
+            <canvas id="pdf-canvas"></canvas>
+            <div>
+                <button id="prev-page">Previous</button>
+                <button id="next-page">Next</button>
+                <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script>
+        var url = '/static/LedNits Led Screen Manufacturers.pdf'; // Replace with your PDF path
+    
+        var pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            scale = 1.5,
+            canvas = document.getElementById('pdf-canvas'),
+            ctx = canvas.getContext('2d');
+    
+        /**
+         * Get page info from document, resize canvas accordingly, and render page.
+         * @param num Page number.
+         */
+        function renderPage(num) {
+            pageRendering = true;
+            // Using promise to fetch the page
+            pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport({ scale: scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+    
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+    
+                // Wait for rendering to finish
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        // New page rendering is pending
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+    
+            // Update page counters
+            document.getElementById('page-num').textContent = num;
+        }
+    
+        /**
+         * If another page rendering in progress, waits until the rendering is
+         * finished. Otherwise, executes rendering immediately.
+         */
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+    
+        /**
+         * Displays previous page.
+         */
+        function onPrevPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+        document.getElementById('prev-page').addEventListener('click', onPrevPage);
+    
+        /**
+         * Displays next page.
+         */
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+        document.getElementById('next-page').addEventListener('click', onNextPage);
+    
+        /**
+         * Asynchronously downloads PDF.
+         */
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page-count').textContent = pdfDoc.numPages;
+    
+            // Initial/first page rendering
+            renderPage(pageNum);
+        });
+    </script>
+    <!--<script src="src/app.js"></script>-->
+</body>
+</html>

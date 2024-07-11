@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+</head>
+<body>
+    <h1>Admin Page</h1>
+
+    <h2>{% if special_item_to_edit %}Edit Special Item{% else %}Add Special Item{% endif %}</h2>
+    <form method="POST" action="{{ url_for('admin') }}">
+        {% if special_item_to_edit %}
+            <input type="hidden" name="special_item_id" value="{{ special_item_to_edit.id }}">
+        {% endif %}
+        <input type="text" name="special_item_name" placeholder="Special Item Name" value="{% if special_item_to_edit %}{{ special_item_to_edit.name }}{% endif %}" required>
+        <input type="number" step="0.01" name="special_item_price" placeholder="Special Item Price" value="{% if special_item_to_edit %}{{ special_item_to_edit.price }}{% endif %}" required>
+        <textarea name="special_item_description" placeholder="Special Item Description">{% if special_item_to_edit %}{{ special_item_to_edit.description }}{% endif %}</textarea>
+        <button type="submit">{% if special_item_to_edit %}Update Special Item{% else %}Add Special Item{% endif %}</button>
+    </form>
+
+    <h2>Today's Special Item</h2>
+    <ul>
+        {% for special_item in special_items %}
+            <li>
+                {{ special_item.name }} - ${{ special_item.price }}: {{ special_item.description }}
+                <form method="POST" action="{{ url_for('delete_special_item', special_item_id=special_item.id) }}" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="{{ url_for('admin', edit_special_item_id=special_item.id) }}">Edit</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <h2>Add Category</h2>
+    <form method="POST" action="{{ url_for('admin') }}">
+        <input type="text" name="category_name" placeholder="Category Name" required>
+        <button type="submit">Add Category</button>
+    </form>
+
+    <h2>{% if item_to_edit %}Edit Item{% else %}Add Item{% endif %}</h2>
+    <form method="POST" action="{{ url_for('admin') }}">
+        {% if item_to_edit %}
+            <input type="hidden" name="item_id" value="{{ item_to_edit.id }}">
+        {% endif %}
+        <select name="category_id" required>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if item_to_edit and category.id == item_to_edit.category_id %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="item_name" placeholder="Item Name" value="{% if item_to_edit %}{{ item_to_edit.name }}{% endif %}" required>
+        <input type="number" step="0.01" name="item_price" placeholder="Item Price" value="{% if item_to_edit %}{{ item_to_edit.price }}{% endif %}" required>
+        <textarea name="item_description" placeholder="Item Description">{% if item_to_edit %}{{ item_to_edit.description }}{% endif %}</textarea>
+        <button type="submit">{% if item_to_edit %}Update Item{% else %}Add Item{% endif %}</button>
+    </form>
+
+
+
+    
+
+    <h2>Categories</h2>
+    <ul>
+        {% for category in categories %}
+            <li>
+                {{ category.name }}
+                <form method="POST" action="{{ url_for('update_category', category_id=category.id) }}" style="display:inline;">
+                    <input type="text" name="new_category_name" placeholder="New Category Name" required>
+                    <button type="submit">Update</button>
+                </form>
+                {% if category.items|length == 0 %}
+                    <form method="POST" action="{{ url_for('delete_category', category_id=category.id) }}" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                {% else %}
+                    <button type="button" disabled>Delete</button>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <h2>Categories and Items</h2>
+    {% for category in categories %}
+        <h3>{{ category.name }}</h3>
+        <ul>
+            {% for item in category.items %}
+                <li>
+                    {{ item.name }} - ${{ item.price }}: {{ item.description }}
+                    <form method="POST" action="{{ url_for('delete_item', item_id=item.id) }}" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a href="{{ url_for('admin', edit_item_id=item.id) }}">Edit</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>
