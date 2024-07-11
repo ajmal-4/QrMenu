@@ -1,8 +1,21 @@
 from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+# for google cloud host
+from dotenv import load_dotenv
+import os
+from flask_cors import CORS
+
+# for google cloud host
+load_dotenv()
 
 app = Flask(__name__)
+# for google cloud host
+CORS(app)
+
+# for google cloud host
+app.config['DEBUG'] = os.environ.get('FLASK_DEBUG')
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///menu.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -149,4 +162,4 @@ def home():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
