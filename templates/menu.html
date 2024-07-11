@@ -94,7 +94,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <script>
-        var url = '/static/LedNits Led Screen Manufacturers.pdf'; // Replace with your PDF path
+        var url = "{{ url_for('static', filename='LedNits Led Screen Manufacturers.pdf') }}"; // Replace with your PDF path
     
         var pdfDoc = null,
             pageNum = 1,
