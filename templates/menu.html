@@ -10,6 +10,7 @@
     <title>Restaurant Menu</title>
 </head>
 <body>
+    <!-- Hotel Header Name -->
     <section class="hotel-name">
         <h1> Majliss </h1>
         <p>Wadakkanchery</p>
@@ -32,9 +33,18 @@
         </div>
     </section>
     {% endif %}
+
+    <!-- Image Section -->
+    <section class="image-section">
+        <img src="{{ url_for('static', filename='images/offerImage.jpg') }}" alt="Menu Image" class="menu-image">
+    </section>
+
+    <section class="image-section">
+        <img src="{{ url_for('static', filename='images/bannerFood.jpg') }}" alt="Menu Image" class="menu-image">
+    </section>
     
-    <section class="hotel-name">
-        <h1> Our Menu </h1>
+    <section class="our-menu">
+        <h1> Menu </h1>
     </section>
     <main class="container">
         <div class="background-animation"></div>
@@ -81,20 +91,23 @@
         </div>
     </main>
     <section class="pdf-section">
-        <h2 class="pdf-heading">Menu PDF</h2>
+        <h2 class="pdf-heading">Combo Offers</h2>
         <div class="pdf-container">
             <canvas id="pdf-canvas"></canvas>
-            <div>
-                <button id="prev-page">Previous</button>
-                <button id="next-page">Next</button>
+            <div id="page-info">
                 <span>Page: <span id="page-num"></span> / <span id="page-count"></span></span>
+            </div>
+            <div id="navigation-controls">
+                <button id="prev-page"></button>
+                <button id="next-page"></button>
             </div>
         </div>
     </section>
     
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
     <script>
-        var url = "{{ url_for('static', filename='LedNits Led Screen Manufacturers.pdf') }}"; // Replace with your PDF path
+        var url = "{{ url_for('static', filename='comboOffers.pdf') }}"; // Replace with your PDF path
     
         var pdfDoc = null,
             pageNum = 1,

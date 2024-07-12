@@ -1,15 +1,31 @@
-.hotel-name {
-    text-align: center;
-    margin: 20px 0;
+/* Whole Background */
+body{
+    background-color: #0e0d0d;
 }
 
-body{
-    background-color: #ff8c00;
+
+
+/* Hotel Name */
+.hotel-name {
+    text-align: center;
+    margin-top: 100px;
+    color: rgb(228, 197, 144);
 }
+.hotel-name h1{
+    margin-bottom: 0;
+    font-size: 2rem;
+}
+.hotel-name p{
+    margin: 0;
+    font-size: 1rem;
+}
+
+
 
 /* Special Items Section */
 .special-items-section {
-    margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
     padding: 20px;
     /*background-color: #fff8e1; /* Light golden yellow background */
     /*border: 1px solid #ffd700;*/
@@ -21,7 +37,7 @@ body{
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
-    color: #0f0e0e; /* Darker golden yellow color for heading */
+    color: #f5f5f5; /* Darker golden yellow color for heading */
 }
 
 .special-items {
@@ -34,9 +50,9 @@ body{
     width: 80%; /* Set a reasonable width for each item */
     margin: 10px 0; /* Vertical margin for spacing between items */
     padding: 10px;
-    border: 1px solid #ffd700;
+    border: 1px solid rgb(228, 197, 144);
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: #030303;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -44,7 +60,7 @@ body{
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #ff8c00;
+    color: rgb(228, 197, 144);
     display: flex;
     justify-content: space-between; /* Align name and price at opposite ends */
 }
@@ -55,7 +71,7 @@ body{
 
 .special-item-price {
     font-size: 16px;
-    color: #28a745;
+    color: rgb(228, 197, 144);
 }
 
 .special-item-desc {
@@ -65,59 +81,28 @@ body{
 
 
 
-/* General styles for the PDF viewer */
-#pdf-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-}
-
-#pdf-canvas {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-}
-
-#navigation-controls {
-    display: flex;
-    justify-content: space-between;
+/*Image Banners Section*/
+.image-section {
     width: 100%;
+    text-align: center;
+    margin: 20px 0; /* Adjust margin as needed */
 }
 
-#navigation-controls button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
+.image-section img {
+    width: 100%;
+    height: auto;
 }
 
-#navigation-controls button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
 
-/* Media queries for mobile screens */
-@media (max-width: 600px) {
-    #pdf-container {
-        margin: 10px;
-    }
 
-    #navigation-controls {
-        flex-direction: column;
-    }
-
-    #navigation-controls button {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    #pdf-canvas {
-        width: 100%;
-    }
+/* Menu Heading*/
+.our-menu{
+    text-align: center;
+    color: rgb(228, 197, 144);
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: x-large;
 }
 
 
@@ -140,7 +125,7 @@ body{
     bottom: 0;
     left: 50%;
     width: 1px;
-    background-color: #000; /* Color of the vertical line */
+    background-color: rgb(228, 197, 144); /* Color of the vertical line */
     transform: translateX(-50%);
 }
 
@@ -166,9 +151,12 @@ body{
     content: '';
     display: block;
     width: 100%;
-    height: 1px;
-    background-color: #000; /* Color of the horizontal line */
-    margin-top: 20px; /* Space between the content and the line */
+    height: auto;
+    background: url('../images/separator.svg') no-repeat center;
+    background-size: contain;
+    margin-top: 20px; /* Space between the content and the separator */
+    padding-bottom: 20px; /* Space below the separator to account for its height */
+    opacity: 0.5;
 }
 
 /* Heading styles */
@@ -176,6 +164,7 @@ body{
     text-align: center;
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: rgb(228, 197, 144);
 }
 
 /* Styles for items */
@@ -184,7 +173,6 @@ body{
     flex-direction: column;
     align-items: flex-start;
     margin: 0;
-    
 }
 
 .menu-item-heading {
@@ -196,17 +184,111 @@ body{
 
 .menu-item-name {
     font-size: 1rem;
+    color: #fff;
 }
 
 .menu-item-price {
     font-size: 1rem;
     margin-left: auto;
+    color: rgb(228, 197, 144);
 }
 
 .menu-item-desc {
     text-align: left;
     margin: 0;
+    color: 	rgb(250, 249, 246);
 }
+
+
+
+/* General styles for the PDF viewer */
+/* General styles for the PDF viewer */
+.pdf-heading {
+    color: rgb(228, 197, 144);
+    text-align: center;
+}
+
+#pdf-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+#pdf-canvas {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+#page-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    color: rgb(228, 197, 144);
+}
+
+#navigation-controls {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#navigation-controls button {
+    background-color: rgb(228, 197, 144);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px; /* Add some space between buttons */
+}
+
+#navigation-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Media queries for mobile screens */
+@media (max-width: 600px) {
+    #pdf-container {
+        margin: 10px;
+    }
+
+    #navigation-controls {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #navigation-controls button {
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+    }
+
+    #pdf-canvas {
+        width: 100%;
+    }
+}
+
+/* Additional styles for arrows */
+#prev-page::before {
+    content: '\25C0'; /* Unicode for left arrow */
+}
+
+#next-page::before {
+    content: '\25B6'; /* Unicode for right arrow */
+}
+
 
 
 
@@ -234,7 +316,7 @@ body{
     background-image: url('../images/shape-5.png'); /* Replace with your image path */
     background-size: cover;
     background-position: center;
-    opacity: 0.2; /* Opacity for the background image */
+    opacity: 2; /* Opacity for the background image */
     z-index: -1; /* Ensure it's behind the background color */
     animation: background-slide 60s linear infinite; /* Adjust animation duration and timing function */
 }
