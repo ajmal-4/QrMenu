@@ -55,7 +55,7 @@
                     <div class="menu">
                         <h2 class="menu-group-heading">{{ category.name }}</h2>
                         <div class="menu-group">
-                            {% for item in category.items %}
+                            {% for item in category['items'] %}
                                 <div class="menu-item">
                                     <h3 class="menu-item-heading">
                                         <span class="menu-item-name">{{ item.name }}</span>
@@ -75,7 +75,7 @@
                     <div class="menu">
                         <h2 class="menu-group-heading">{{ category.name }}</h2>
                         <div class="menu-group">
-                            {% for item in category.items %}
+                            {% for item in category['items'] %}
                                 <div class="menu-item">
                                     <h3 class="menu-item-heading">
                                         <span class="menu-item-name">{{ item.name }}</span>

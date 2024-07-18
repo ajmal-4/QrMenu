@@ -1,2 +1,4 @@
+__pycache__/
 qrmenuenv/
 .dist/
+db.py
