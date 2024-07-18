@@ -1,5 +1,4 @@
 alembic==1.13.2
-beautifulsoup4==4.12.3
 blinker==1.8.2
 click==8.1.7
 colorama==0.4.6
@@ -17,6 +16,5 @@ packaging==24.1
 pdfkit==1.0.0
 python-dotenv==1.0.1
 soupsieve==2.5
-SQLAlchemy==2.0.31
 typing_extensions==4.12.2
 Werkzeug==3.0.3
