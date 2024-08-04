@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Orders</title>
+</head>
+<body>
+    <h1>Supplier Orders</h1>
+    <form method="POST" action="{{ url_for('supplier') }}">
+        <label for="table_number">Table Number:</label>
+        <input type="text" id="table_number" name="table_number" required>
+        
+        <h2>Items</h2>
+        {% for category in categories %}
+            <h3>{{ category.name }}</h3>
+            <ul>
+                {% for item in category['items'] %}
+                    <li>{{ item.name }} - ${{ item.price }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        
+        <button type="submit">Submit Order</button>
+    </form>
+</body>
+</html>

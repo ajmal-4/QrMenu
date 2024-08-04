@@ -136,6 +136,24 @@ def delete_special_item(special_item_id):
     db.special_items.delete_one({'_id': ObjectId(special_item_id)})
     return redirect(url_for('admin'))
 
+# Supplier Function
+@app.route('/supplier', methods=['GET', 'POST'])
+def supplier():
+    if request.method == 'POST':
+        table_number = request.form['table_number']
+        ordered_items = request.form.getlist('items')
+        # Here you would typically save the order to the database
+        db.orders.insert_one({'table_number': table_number, 'items': ordered_items})
+        return redirect(url_for('supplier'))
+    
+    categories = list(db.categories.find())
+    for category in categories:
+        category['_id'] = str(category['_id'])  # Convert ObjectId to string for Jinja
+        category['items'] = list(db.items.find({'category_id': category['_id']}))  # Retrieve items for each category
+
+    
+    return render_template('supplier_orders.html', categories=categories)
+
 
 if __name__ == '__main__':
     app.run()
